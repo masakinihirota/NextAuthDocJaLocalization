@@ -12,6 +12,10 @@ NextAuth.js comes with multiple ways of connecting to a database:
 
 
 
+NextAuth.js には、データベースに接続するための複数の方法が用意されています。
+
+
+
 -   **TypeORM** (default)  
     _The TypeORM adapter supports MySQL, PostgreSQL, MSSQL, SQLite and MongoDB databases._
 -   **Prisma**  
@@ -22,8 +26,21 @@ NextAuth.js comes with multiple ways of connecting to a database:
     _A custom Adapter can be used to connect to any database._
 
 
+- **TypeORM** (デフォルト)  
+    TypeORM** (デフォルト) TypeORMアダプタは、MySQL、PostgreSQL、MSSQL、SQLite、MongoDBのデータベースをサポートしています。
+- **Prisma**（デフォルト  
+    _Prisma 2アダプタは、MySQL、PostgreSQL、SQLiteデータベースをサポートしています。
+- **Fauna** （ファウナ  
+    _FaunaDB アダプタは FaunaDB のみをサポートしています。
+- カスタムアダプタ  
+    _カスタムアダプタは、任意のデータベースに接続するために使用することができます。
+
+
 
 > There are currently efforts in the [`nextauthjs/adapters`](https://github.com/nextauthjs/adapters) repository to get community-based DynamoDB, Sanity, PouchDB and Sequelize Adapters merged. If you are interested in any of the above, feel free to check out the PRs in the `nextauthjs/adapters` repository!
+
+
+> 現在、[`nextauthjs/adapters`](https://github.com/nextauthjs/adapters) リポジトリでは、コミュニティベースの DynamoDB、Sanity、PouchDB、Sequelize アダプタをマージする作業が行われています。上記のいずれかに興味がある方は、`nextauthjs/adapters`リポジトリのPRを気軽にチェックしてみてください!
 
 
 
@@ -31,11 +48,23 @@ NextAuth.js comes with multiple ways of connecting to a database:
 
 
 
+**このドキュメントは、デフォルトのアダプタ(TypeORM)を対象としています**。
+
+
+
+
 See the [documentation for adapters](https://next-auth.js.org/adapters/overview) to learn more about using Prisma adapter or using a custom adapter.
+
+
+Prismaアダプタの使用やカスタムアダプタの使用については、[document for adapters](https://next-auth.js.org/adapters/overview)を参照してください。
 
 
 
 To learn more about databases in NextAuth.js and how they are used, check out [databases in the FAQ](https://next-auth.js.org/faq#databases).
+
+
+NextAuth.jsのデータベースについて、またその使い方については、[FAQのデータベース](https://next-auth.js.org/faq#databases)をご覧ください。
+
 
 
 
@@ -47,7 +76,12 @@ ___
 
 
 
+
 You can specify database credentials as as a connection string or a [TypeORM configuration](https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md) object.
+
+
+
+データベースの認証情報は、接続文字列または[TypeORM configuration](https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md)オブジェクトとして指定することができます。
 
 
 
@@ -55,47 +89,23 @@ The following approaches are exactly equivalent:
 
 
 
-database: "mysql://nextauth:password@127.0.0.1:3306/database\_name"
+以下の方法は全く同じです。
 
 
+```
+database: "mysql://nextauth:password@127.0.0.1:3306/database_name"
+```
 
-Copy
-
-
-
+```
 database: {
-
-
-
-type: 'mysql',
-
-
-
-host: '127.0.0.1',
-
-
-
-port: 3306,
-
-
-
-username: 'nextauth',
-
-
-
-password: 'password',
-
-
-
-database: 'database\_name'
-
-
-
+  type: 'mysql',
+  host: '127.0.0.1',
+  port: 3306,
+  username: 'nextauth',
+  password: 'password',
+  database: 'database_name'
 }
-
-
-
-Copy
+```
 
 
 
@@ -107,59 +117,39 @@ You can pass in any valid [TypeORM configuration option](https://github.com/type
 
 
 
+有効な[TypeORM設定オプション](https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md)を渡すことができます。
+
+
+
 _e.g. To set a prefix for all table names you can use the **entityPrefix** option as connection string parameter:_
 
 
+例えば、全てのテーブル名にプレフィックスを設定するには、接続文字列パラメータとして **entityPrefix** オプションを使用することができます:
 
-"mysql://nextauth:password@127.0.0.1:3306/database\_name?entityPrefix=nextauth\_"
+```
+"mysql://nextauth:password@127.0.0.1:3306/database_name?entityPrefix=nextauth_"
 
+```
 
-
-Copy
 
 
 
 _…or as a database configuration object:_
 
 
+_...または、データベース構成オブジェクトとして使用します。
 
+```
 database: {
-
-
-
-type: 'mysql',
-
-
-
-host: '127.0.0.1',
-
-
-
-port: 3306,
-
-
-
-username: 'nextauth',
-
-
-
-password: 'password',
-
-
-
-database: 'database\_name',
-
-
-
-entityPrefix: 'nextauth\_'
-
-
-
+  type: 'mysql',
+  host: '127.0.0.1',
+  port: 3306,
+  username: 'nextauth',
+  password: 'password',
+  database: 'database_name',
+  entityPrefix: 'nextauth_'
 }
-
-
-
-Copy
+```
 
 
 
@@ -174,8 +164,15 @@ ___
 Using SQL to create tables and columns is the recommended way to set up an SQL database for NextAuth.js.
 
 
+SQLを使ってテーブルやカラムを作成することは、NextAuth.jsのSQLデータベースをセットアップするための推奨される方法です。
+
+
 
 Check out the links below for SQL you can run to set up a database for NextAuth.js.
+
+
+NextAuth.js 用のデータベースをセットアップするために実行できる SQL については、以下のリンクを参照してください。
+
 
 
 
@@ -187,56 +184,32 @@ Check out the links below for SQL you can run to set up a database for NextAuth.
 _If you are running SQLite, MongoDB or a Document database you can skip this step._
 
 
+_SQLite、MongoDB、Documentデータベースを使用している場合は、このステップをスキップできます。
+
+
 
 Alternatively, you can also have your database configured automatically using the `synchronize: true` option:
 
 
 
-database: "mysql://nextauth:password@127.0.0.1:3306/database\_name?synchronize=true"
+また、`synchronize: true`オプションを使って、データベースを自動的に設定することもできます。
 
 
+```
+database: "mysql://nextauth:password@127.0.0.1:3306/database_name?synchronize=true"
+```
 
-Copy
-
-
-
+```
 database: {
-
-
-
-type: 'mysql',
-
-
-
-host: '127.0.0.1',
-
-
-
-port: 3306,
-
-
-
-username: 'nextauth',
-
-
-
-password: 'password',
-
-
-
-database: 'database\_name',
-
-
-
-synchronize: true
-
-
-
+  type: 'mysql',
+  host: '127.0.0.1',
+  port: 3306,
+  username: 'nextauth',
+  password: 'password',
+  database: 'database_name',
+  synchronize: true
 }
-
-
-
-Copy
+```
 
 
 
@@ -248,7 +221,14 @@ Copy
 
 
 
+**「synchronize」オプションは、運用中のデータベースに対して使用すべきではありません。'**
+
+
 It is useful to create the tables you need when setting up a database for the first time, but it should not be enabled against production databases as it may result in data loss if there is a difference between the schema that found in the database and the schema that the version of NextAuth.js being used is expecting.
+
+
+
+初めてデータベースをセットアップする際に必要なテーブルを作成するのに便利ですが、データベースにあるスキーマと、使用しているNextAuth.jsのバージョンが期待するスキーマに違いがあると、データが失われる可能性があるため、本番のデータベースに対しては有効にすべきではありません。
 
 
 
@@ -263,9 +243,14 @@ ___
 The default database adapter is TypeORM, but only some databases supported by TypeORM are supported by NextAuth.js as custom logic needs to be handled by NextAuth.js.
 
 
+デフォルトのデータベースアダプターはTypeORMですが、カスタムロジックはNextAuth.jsで処理する必要があるため、TypeORMでサポートされている一部のデータベースのみがNextAuth.jsでサポートされています。
+
+
 
 Databases compatible with MySQL, Postgres and MongoDB should work out of the box with NextAuth.js. When used with any other database, NextAuth.js will assume an ANSI SQL compatible database.
 
+
+MySQL、Postgres、MongoDBと互換性のあるデータベースは、NextAuth.jsですぐに動作するはずです。それ以外のデータベースを使用する場合、NextAuth.jsはANSI SQL互換のデータベースを想定しています。
 
 
 ##### tip
@@ -273,6 +258,9 @@ Databases compatible with MySQL, Postgres and MongoDB should work out of the box
 
 
 When configuring your database you also need to install an appropriate **node module** for your database.
+
+
+データベースを設定する際には、そのデータベースに適した **node モジュール** をインストールする必要があります。
 
 
 
@@ -286,13 +274,10 @@ Install module: `npm i mysql`
 
 #### Example[#](#example "Direct link to heading")
 
+```
+database: "mysql://username:password@127.0.0.1:3306/database_name"
+```
 
-
-database: "mysql://username:password@127.0.0.1:3306/database\_name"
-
-
-
-Copy
 
 
 
@@ -307,21 +292,20 @@ Install module: `npm i mariadb`
 #### Example[#](#example-1 "Direct link to heading")
 
 
-
-database: "mariadb://username:password@127.0.0.1:3306/database\_name"
-
-
-
-Copy
-
-
+```
+database: "mariadb://username:password@127.0.0.1:3306/database_name"
+```
 
 ### Postgres / CockroachDB[#](#postgres--cockroachdb "Direct link to heading")
 
 
-
+```
 Install module: `npm i pg`
+```
 
+```
+database: "postgres://username:password@127.0.0.1:5432/database_name"
+```
 
 
 #### Example[#](#example-2 "Direct link to heading")
@@ -330,81 +314,35 @@ Install module: `npm i pg`
 
 PostgresDB
 
-
-
-database: "postgres://username:password@127.0.0.1:5432/database\_name"
-
-
-
-Copy
-
-
+```
+database: "postgres://username:password@127.0.0.1:5432/database_name"
+```
 
 CockroachDB
 
-
-
-database: "postgres://username:password@127.0.0.1:26257/database\_name"
-
-
-
-Copy
-
-
+```
+database: "postgres://username:password@127.0.0.1:26257/database_name"
+```
 
 If the node is using Self-signed cert
 
 
+ノードが自己署名証明書を使用している場合
 
+```
 database: {
-
-
-
-type: "cockroachdb",
-
-
-
-host: process.env.DATABASE\_HOST,
-
-
-
-port: 26257,
-
-
-
-username: process.env.DATABASE\_USER,
-
-
-
-password: process.env.DATABASE\_PASSWORD,
-
-
-
-database: process.env.DATABASE\_NAME,
-
-
-
-ssl: {
-
-
-
-rejectUnauthorized: false,
-
-
-
-ca: fs.readFileSync('/path/to/server-certificates/root.crt').toString()
-
-
-
-},
-
-
-
-},
-
-
-
-Copy
+    type: "cockroachdb",
+    host: process.env.DATABASE_HOST,
+    port: 26257,
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    ssl: {
+      rejectUnauthorized: false,
+      ca: fs.readFileSync('/path/to/server-certificates/root.crt').toString()
+    },
+  },
+```
 
 
 
@@ -427,12 +365,9 @@ Install module: `npm i mssql`
 #### Example[#](#example-3 "Direct link to heading")
 
 
-
-database: "mssql://sa:password@localhost:1433/database\_name"
-
-
-
-Copy
+```
+database: "mssql://sa:password@localhost:1433/database_name"
+```
 
 
 
@@ -446,14 +381,9 @@ Install module: `npm i mongodb`
 
 #### Example[#](#example-4 "Direct link to heading")
 
-
-
-database: "mongodb://username:password@127.0.0.1:3306/database\_name"
-
-
-
-Copy
-
+```
+database: "mongodb://username:password@127.0.0.1:3306/database_name"
+```
 
 
 ### SQLite[#](#sqlite "Direct link to heading")
@@ -463,6 +393,8 @@ Copy
 _SQLite is intended only for development / testing and not for production use._
 
 
+_SQLiteは開発/テストのみを目的としており、本番での使用はできません。
+
 
 Install module: `npm i sqlite3`
 
@@ -470,13 +402,10 @@ Install module: `npm i sqlite3`
 
 #### Example[#](#example-5 "Direct link to heading")
 
-
-
+```
 database: "sqlite://localhost/:memory:"
+```
 
-
-
-Copy
 
 
 
@@ -486,6 +415,8 @@ Copy
 
 See the [documentation for adapters](https://next-auth.js.org/adapters/overview) for more information on advanced configuration, including how to use NextAuth.js with other databases using a [custom adapter](https://next-auth.js.org/tutorials/creating-a-database-adapter).
 
+
+[カスタムアダプター](https://next-auth.js.org/tutorials/creating-a-database-adapter)を使ってNextAuth.jsを他のデータベースで使用する方法など、高度な設定については[アダプターのためのドキュメント](https://next-auth.js.org/adapters/overview)を参照してください。
 
 
 [Edit this page](https://github.com/nextauthjs/next-auth/edit/main/www/docs/configuration/databases.md)
