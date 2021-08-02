@@ -38,7 +38,9 @@ You can specify a handler for any of the callbacks below.
       return token
     }
 ...
+
 }
+
 ```
 
 The documentation below shows how to implement each callback, their default behaviour and an example of what the response for each callback should be. Note that configuration options and authentication providers you are using can impact the values passed to the callbacks.
@@ -52,6 +54,7 @@ Use the `signIn()` callback to control if a user is allowed to sign in.
 `signIn()`コールバックを使用して、ユーザーのサインインを許可するかどうかを制御します。
 
 ```pages/api/auth/[...nextauth].js
+
 ...
 callbacks: {
   /**
@@ -75,11 +78,12 @@ callbacks: {
   }
 }
 ...
+
 ```
 
 - When using the **Email Provider** the `signIn()` callback is triggered both when the user makes a **Verification Request** (before they are sent email with a link that will allow them to sign in) and again _after_ they activate the link in the sign in email.
 
-- **Email Provider**を使用する場合、`signIn()`コールバックは、ユーザーが**Verification Request**を行った時（サインインを可能にするリンクを含むメールが送られる前）と、サインインメールのリンクを有効にした\_後の両方でトリガされます。
+- **Email Provider**を使用する場合、`signIn()`コールバックは、ユーザーが**Verification Request**を行った時（サインインを可能にするリンクを含むメールが送られる前）と、サインインメールのリンクを有効にした後の両方でトリガされます。
 
   Email accounts do not have profiles in the same way OAuth accounts do. On the first call during email sign in the `profile` object will include a property `verificationRequest: true` to indicate it is being triggered in the verification request flow. When the callback is invoked _after_ a user has clicked on a sign in link, this property will not be present.
 
@@ -167,6 +171,7 @@ The contents _user_, _account_, _profile_ and _isNewUser_ will vary depending on
 _user_, _account_, _profile_, *isNewUser*の内容は、プロバイダや、データベースを使用しているかどうかによって異なります。ユーザー ID や OAuth アクセストークンなどのデータをブラウザに渡したい場合は、トークンに永続化させ、`session()`コールバックを使って返します。
 
 ```pages/api/auth/[...nextauth].js
+
 ...
 callbacks: {
   /**
@@ -186,6 +191,7 @@ callbacks: {
   }
 }
 ...
+
 
 ```
 
