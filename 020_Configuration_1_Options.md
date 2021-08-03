@@ -13,8 +13,6 @@ When deploying to production, set the `NEXTAUTH_URL` environment variable to the
 
 NEXTAUTH_URL=https://example.com
 
-Copy
-
 If your Next.js application uses a custom base path, specify the route to the API endpoint in full.
 
 Next.js アプリケーションがカスタムベースパスを使用している場合は、API エンドポイントへのルートを完全に指定します。
@@ -34,7 +32,7 @@ If provided, server-side calls will use this instead of `NEXTAUTH_URL`. Useful i
 提供された場合、サーバーサイドの呼び出しは `NEXTAUTH_URL` の代わりにこれを使用します。サーバーがサイトの正規の URL にアクセスできない環境で便利です。デフォルトでは `NEXTAUTH_URL` が使用されます。
 
 ```
-NEXTAUTH\_URL\_INTERNAL=http://10.240.8.16
+NEXTAUTH_URL_INTERNAL=http://10.240.8.16
 ```
 
 ---
